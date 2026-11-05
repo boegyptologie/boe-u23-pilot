@@ -39,12 +39,12 @@
           <summary>Contents</summary>
           <nav aria-label="Article contents">
             <button type="button" data-section-pick="resume" aria-current="location">Abstract</button>
-            <button type="button" data-section-pick="0">0. The sign 𓍋</button>
-            <button type="button" data-section-pick="1">1. The mastaba of Kꜣ-ḥ(w)j=f</button>
-            <button type="button" data-section-pick="2">2. The Abydos stela CG 20554</button>
-            <button type="button" data-section-pick="3">3. The mastaba of Nesunefer</button>
-            <button type="button" data-section-pick="4">4. The inflection of verbs</button>
-            <button type="button" data-section-pick="5">5. The four pieces of evidence</button>
+            <button type="button" data-section-pick="0"><span class="boe-contents-number">0.</span> <span>The sign 𓍋</span></button>
+            <button type="button" data-section-pick="1"><span class="boe-contents-number">1.</span> <span>The mastaba of Kꜣ-ḥ(w)j=f</span></button>
+            <button type="button" data-section-pick="2"><span class="boe-contents-number">2.</span> <span>The Abydos stela CG 20554</span></button>
+            <button type="button" data-section-pick="3"><span class="boe-contents-number">3.</span> <span>The mastaba of Nesunefer</span></button>
+            <button type="button" data-section-pick="4"><span class="boe-contents-number">4.</span> <span>The inflection of verbs</span></button>
+            <button type="button" data-section-pick="5"><span class="boe-contents-number">5.</span> <span>The four pieces of evidence</span></button>
           </nav>
         </details>
       </aside>
@@ -177,8 +177,10 @@
 #boe-u23-reader .boe-plan nav { display: grid; gap: 1px; margin-top: 5px; }
 #boe-u23-reader .boe-plan button {
   position: relative; min-height: 29px; padding: 3px 2px 3px 12px;
-  text-align: start; font-size: 15px; line-height: 1.22;
+  display: flex; align-items: baseline; gap: .3em;
+  text-align: start; font-size: 16px; font-weight: 600; line-height: 1.22;
 }
+#boe-u23-reader .boe-contents-number { color: var(--boe-red); font-size: 19px; font-weight: 700; line-height: 1; }
 #boe-u23-reader .boe-plan button[aria-current] { font-weight: 700; }
 #boe-u23-reader .boe-plan button[aria-current]::before {
   content: ""; position: absolute; inset-inline-start: 0; inset-block-start: .66em;
