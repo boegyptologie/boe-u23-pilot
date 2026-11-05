@@ -355,33 +355,22 @@
 <script>
 (() => {
   const counter = document.getElementById('boe-goatcounter');
-  const metrics = document.querySelectorAll('[data-counter-path]');
-  const pdf = document.querySelector('[data-goatcounter-click]');
-  let refreshTimer;
 
-  async function refresh() {
-    for (const metric of metrics) {
-      const path = encodeURIComponent(metric.dataset.counterPath);
-      const url = new URL('/counter/' + path + '.json', counter.dataset.goatcounter);
-      try {
-        const response = await fetch(url, { credentials: 'omit', cache: 'no-store' });
-        if (!response.ok) continue;
-        const { count } = await response.json();
-        if (typeof count === 'string' && count) metric.textContent = count;
-      } catch {
-        // An unavailable counter does not prevent reading or opening the PDF.
-      }
+  async function showCount(metric) {
+    const path = encodeURIComponent(metric.dataset.counterPath);
+    const url = new URL('/counter/' + path + '.json', counter.dataset.goatcounter);
+    url.searchParams.set('start', '2026-11-05');
+    try {
+      const response = await fetch(url, { credentials: 'omit' });
+      if (!response.ok) return;
+      const { count } = await response.json();
+      if (typeof count === 'string' && count) metric.textContent = count;
+    } catch {
+      // An unavailable counter does not prevent reading or opening the PDF.
     }
   }
 
-  function refreshAfterCollection() {
-    clearTimeout(refreshTimer);
-    refreshTimer = setTimeout(refresh, 20000);
-  }
-
-  refresh();
-  refreshAfterCollection();
-  pdf.addEventListener('click', refreshAfterCollection);
+  for (const metric of document.querySelectorAll('[data-counter-path]')) showCount(metric);
 })();
 </script>
 </body>
