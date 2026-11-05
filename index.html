@@ -180,7 +180,10 @@
   display: flex; align-items: baseline; gap: .3em;
   text-align: start; font-size: 16px; font-weight: 600; line-height: 1.22;
 }
-#boe-u23-reader .boe-contents-number { color: var(--boe-red); font-size: 19px; font-weight: 700; line-height: 1; }
+#boe-u23-reader .boe-contents-number {
+  flex: none; white-space: nowrap;
+  color: var(--boe-red); font-size: 19px; font-weight: 700; line-height: 1;
+}
 #boe-u23-reader .boe-plan button[aria-current] { font-weight: 700; }
 #boe-u23-reader .boe-plan button[aria-current]::before {
   content: ""; position: absolute; inset-inline-start: 0; inset-block-start: .66em;
