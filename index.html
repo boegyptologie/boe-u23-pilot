@@ -111,7 +111,9 @@
 #boe-u23-reader .boe-reading-copy .semibold { font-weight: 600; }
 #boe-u23-reader :is(.boe-reading-copy p,.boe-abstract,.boe-endmatter section,a[role="doc-noteref"]) { scroll-margin-top: 18px; }
 #boe-u23-reader .note-call { line-height: 0; margin-inline: .1em; }
-#boe-u23-reader .note-call a { font: 700 .85em/1 var(--boe-display); padding: .12em; }
+#boe-u23-reader .note-call a {
+  color: var(--boe-link-red); font: 600 1em/1 var(--boe-display); padding: .12em;
+}
 #boe-u23-reader .boe-inline-note {
   margin: 1em 0; padding: .25em 0 .42em .75em;
   border-top: 1px solid var(--boe-red); border-inline-start: 1px solid var(--boe-red);
@@ -119,7 +121,9 @@
 #boe-u23-reader .boe-note-top { display: flex; justify-content: space-between; align-items: center; gap: .6em; }
 #boe-u23-reader .boe-note-top h3 { font: 600 16px/1.4 var(--boe-display); }
 #boe-u23-reader .boe-note-top button {
-  padding: 5px 7px; border: 0; background: transparent; color: inherit; font: 400 16px/1.4 var(--boe-display);
+  display: inline-grid; place-items: center; min-width: 32px; min-height: 32px;
+  padding: 0; border: 0; background: transparent; color: var(--boe-link-red);
+  font: 400 22px/1 var(--boe-display); cursor: pointer;
 }
 #boe-u23-reader .boe-endmatter { border-top: 1px solid var(--boe-red); padding: 22px var(--boe-inset) 28px; }
 #boe-u23-reader .boe-endmatter section + section { margin-top: 1.75rem; }
@@ -144,8 +148,15 @@
   #boe-u23-reader .boe-brand strong { font-size: 16px; }
   #boe-u23-reader .boe-reading-body { padding-top: 16px; }
 }
+@media (min-width: 801px) {
+  #boe-u23-reader .boe-masthead::after {
+    inset-block-end: 0; height: 7px; border-inline: 1px solid var(--boe-red);
+  }
+  #boe-u23-reader :is(.boe-article-head,.boe-navigation) { border-inline-end: 1px solid var(--boe-red); }
+}
 @media (pointer: coarse) {
   #boe-u23-reader :is(.boe-tools a,.boe-plan a,.boe-plan summary,.boe-note-top button) { min-height: 44px; }
+  #boe-u23-reader .boe-note-top button { min-width: 44px; }
 }
 </style>
 </head>
@@ -204,7 +215,7 @@
 <aside id="boe-u23-inline-note" class="boe-inline-note" aria-labelledby="boe-u23-inline-title" hidden>
         <div class="boe-note-top">
 <h3 id="boe-u23-inline-title">Note</h3>
-<button type="button" data-close-note>Close</button>
+<button type="button" data-close-note aria-label="Close note">×</button>
 </div>
         <div class="boe-note-preview-text" lang="en"></div>
       </aside>
