@@ -14,145 +14,186 @@
 
 #boe-u23-reader {
   color-scheme: light;
-  --boe-red: #FF2E17;
-  --boe-link-red: #e02814;
+  --boe-paper: #fff;
   --boe-ink: #222;
   --boe-muted: #666;
-  --boe-inset: clamp(20px, 5vw, 38px);
+  --boe-red: #FF2E17;
+  --boe-link-red: #e02814;
+  --boe-extension: 7px;
+  --boe-rail: clamp(156px, 22%, 211px);
+  --boe-inset: clamp(19px, 4vw, 33px);
   --boe-display: "EB Garamond", "Noto Sans Egyptian Hieroglyphs", Garamond, Georgia, serif;
   --boe-prose: "Noto Serif", "Noto Sans Egyptian Hieroglyphs", Georgia, serif;
-  max-width: 790px;
-  margin-inline: auto;
-  background: #fff;
-  color: var(--boe-ink);
-  font: 400 16px/1.55 var(--boe-display);
+  box-sizing: border-box; width: 100%; max-width: 1024px; margin-inline: auto; padding-inline: 15px;
+  background: var(--boe-paper); color: var(--boe-ink); font: 400 16px/1.55 var(--boe-display);
   overflow-wrap: anywhere;
 }
 #boe-u23-reader *, #boe-u23-reader *::before, #boe-u23-reader *::after { box-sizing: border-box; }
 #boe-u23-reader [hidden] { display: none !important; }
 #boe-u23-reader :is(h1,h2,h3,p,blockquote) { margin: 0; }
-#boe-u23-reader a { color: inherit; text-underline-offset: .18em; text-decoration-color: var(--boe-red); }
+#boe-u23-reader :is(p,a,li,summary,blockquote) { font-family: inherit; }
+#boe-u23-reader a { color: inherit; text-underline-offset: .19em; text-decoration-color: var(--boe-red); }
 #boe-u23-reader :is(a,button,summary):focus-visible { outline-offset: 3px; }
 
-#boe-u23-reader .boe-masthead {
-  position: relative;
-  display: flex; align-items: center; gap: 10px;
-  padding: 15px var(--boe-inset) 17px;
-  border-bottom: 1px solid var(--boe-red);
+#boe-u23-reader :is(.boe-across,.boe-field,.boe-endmatter section) { position: relative; }
+#boe-u23-reader :is(.boe-across,.boe-field,.boe-endmatter section)::after {
+  content: ""; position: absolute; inset-inline: calc(-1 * var(--boe-extension)); inset-block-end: 0;
+  border-top: 1px solid var(--boe-red); pointer-events: none;
 }
-#boe-u23-reader .boe-masthead::after {
-  content: ""; position: absolute; inset: auto 0 6px;
+#boe-u23-reader .boe-endmatter section::after,
+#boe-u23-reader .boe-footer::after { inset-block: 0 auto; }
+#boe-u23-reader .boe-matrix { position: relative; isolation: isolate; }
+#boe-u23-reader .boe-ruling {
+  position: absolute; inset-block: calc(-6px - var(--boe-extension)) calc(-1 * var(--boe-extension)); inset-inline: 0;
+  z-index: 2; pointer-events: none;
+}
+#boe-u23-reader .boe-ruling::before,
+#boe-u23-reader .boe-ruling::after,
+#boe-u23-reader .boe-ruling span {
+  position: absolute; inset-block: 0; border-inline-start: 1px solid var(--boe-red);
+}
+#boe-u23-reader .boe-ruling::before { content: ""; inset-inline-start: 0; }
+#boe-u23-reader .boe-ruling::after { content: ""; inset-inline-end: 0; }
+#boe-u23-reader .boe-ruling span { inset-inline-start: var(--boe-rail); }
+#boe-u23-reader .boe-columns { display: grid; grid-template-columns: var(--boe-rail) minmax(0,1fr); }
+
+#boe-u23-reader .boe-masthead {
+  display: flex; align-items: center; gap: 10px; padding: 16px var(--boe-inset) 21px;
+}
+#boe-u23-reader .boe-masthead::before {
+  content: ""; position: absolute; inset-inline: calc(-1 * var(--boe-extension)); inset-block-end: 6px;
   border-top: 1px solid var(--boe-red);
 }
-#boe-u23-reader .boe-logo { display: block; height: 35px; width: auto; flex: none; }
+#boe-u23-reader .boe-logo { display: block; flex: none; width: auto; height: 37px; }
 #boe-u23-reader .boe-brand { display: grid; gap: 2px; }
 #boe-u23-reader .boe-brand strong { font: 600 17px/1.05 var(--boe-display); }
 #boe-u23-reader .boe-brand small { color: var(--boe-muted); font-size: 11px; line-height: 1.2; }
-#boe-u23-reader .boe-sheet { border-inline-start: 1px solid var(--boe-red); }
-#boe-u23-reader .boe-article-head { padding: 15px var(--boe-inset) 9px; }
 #boe-u23-reader .boe-context {
-  display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 18px;
-  color: var(--boe-muted); font-size: 15px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+  padding: 21px 12px 18px var(--boe-inset); color: var(--boe-muted); font-size: 15px;
 }
 #boe-u23-reader .boe-all-issues { text-decoration: none; }
 #boe-u23-reader .boe-all-issues:hover { text-decoration: underline; }
-#boe-u23-reader .boe-issue-number { display: flex; align-items: baseline; gap: .4em; }
-#boe-u23-reader .boe-issue-number strong { color: var(--boe-ink); font-weight: 600; }
+#boe-u23-reader .boe-issue-number { display: grid; gap: 1px; line-height: 1.22; }
+#boe-u23-reader .boe-issue-number strong { color: var(--boe-ink); font-size: 18px; font-weight: 600; }
 #boe-u23-reader .boe-verspunkt {
   position: relative; top: -.02em; display: inline-block;
   margin-left: .01em; color: var(--boe-red); font-size: 3.6em; line-height: 0;
 }
-#boe-u23-reader h1 {
-  margin-top: 12px;
-  font: 600 clamp(28px, 4.5vw, 39px)/1.07 var(--boe-display);
+#boe-u23-reader .boe-article-head { padding: 21px var(--boe-inset) 17px; }
+#boe-u23-reader .boe-article-head h1 {
+  font: 600 clamp(27px, 4.15vw, 41px)/1.07 var(--boe-display);
   text-wrap: balance; letter-spacing: -.012em;
 }
 #boe-u23-reader .boe-sign { white-space: nowrap; }
 #boe-u23-reader .boe-byline {
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px;
-  margin-top: 9px; color: var(--boe-muted); font-size: 15px;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 11px;
+  margin-top: 10px; color: var(--boe-muted); font-size: 15px;
 }
 #boe-u23-reader .boe-byline strong { color: var(--boe-ink); font-size: 17px; font-weight: 600; }
 
-#boe-u23-reader .boe-navigation {
-  display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;
-  gap: 0 15px; padding: 0 var(--boe-inset) 8px;
-  border-bottom: 1px solid var(--boe-red);
+#boe-u23-reader .boe-margin { min-width: 0; }
+#boe-u23-reader .boe-contents {
+  position: sticky; inset-block-start: 12px; z-index: 1;
+  max-block-size: calc(100vh - 24px); max-block-size: calc(100dvh - 24px); overflow-y: auto;
+  margin-inline-end: 12px; padding: 11px 5px 15px var(--boe-inset);
+  background: var(--boe-paper);
 }
-#boe-u23-reader .boe-tools { display: flex; flex-wrap: wrap; gap: 0 clamp(12px, 2.6vw, 20px); }
-#boe-u23-reader .boe-tools a {
-  display: inline-flex; align-items: center; min-height: 31px;
-  color: var(--boe-link-red); font: 400 17px/1.4 var(--boe-display); text-decoration: none;
-}
-#boe-u23-reader .boe-tools a:hover { text-decoration: underline; }
-#boe-u23-reader .boe-plan { position: relative; margin-inline-start: auto; }
-#boe-u23-reader .boe-plan summary { padding: 4px 0; }
+#boe-u23-reader .boe-plan summary { padding: 4px 0; font-weight: 600; }
 #boe-u23-reader .boe-plan summary::marker { color: var(--boe-red); }
-#boe-u23-reader .boe-plan nav {
-  position: absolute; z-index: 1; inset-block-start: 100%; inset-inline-end: 0;
-  display: grid; width: min(16rem, calc(100vw - 2 * var(--boe-inset)));
-  padding: 6px 10px 9px; background: #fff;
-  border-inline-start: 1px solid var(--boe-red); border-bottom: 1px solid var(--boe-red);
-}
+#boe-u23-reader .boe-plan nav { display: grid; gap: 2px; margin-top: 4px; }
 #boe-u23-reader .boe-plan a {
-  display: flex; align-items: baseline; gap: .36em; min-height: 28px;
-  padding: 4px 0; line-height: 1.22; text-decoration: none;
+  display: flex; align-items: baseline; gap: .35em; min-height: 29px;
+  padding: 4px 0; line-height: 1.22; font-size: 15.5px; text-decoration: none;
 }
 #boe-u23-reader .boe-plan a:hover { text-decoration: underline; }
 #boe-u23-reader .boe-contents-number { flex: none; white-space: nowrap; color: var(--boe-link-red); }
+#boe-u23-reader .boe-article { min-width: 0; }
+#boe-u23-reader .boe-tools {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 clamp(13px, 2.7vw, 23px);
+  padding: 6px var(--boe-inset);
+}
+#boe-u23-reader .boe-tools a {
+  display: inline-flex; align-items: center; min-height: 29px;
+  color: var(--boe-link-red); font: 400 17px/1.4 var(--boe-display); text-decoration: none;
+}
+#boe-u23-reader .boe-tools a:hover { text-decoration: underline; }
 
-#boe-u23-reader .boe-reading-body { padding: 20px var(--boe-inset) 28px; }
+#boe-u23-reader :is(.boe-abstract,.boe-text,.boe-endmatter section) { padding: 19px var(--boe-inset) 23px; }
 #boe-u23-reader h2 { font: 500 23px/1.14 var(--boe-display); margin-bottom: .48em; }
 #boe-u23-reader :is(.boe-reading-copy,.boe-note-body,.boe-note-preview-text,.boe-biblio-list,.boe-citation) {
   max-width: 68ch; font: 400 16px/1.72 var(--boe-prose);
 }
-#boe-u23-reader .boe-abstract { margin-bottom: 1.45em; }
+#boe-u23-reader :is(.boe-reading-copy,.boe-note-body,.boe-note-preview-text) p { font-family: inherit; }
 #boe-u23-reader .boe-reading-copy > p ~ p { margin-top: 1em; }
 #boe-u23-reader .boe-reading-copy .semibold { font-weight: 600; }
-#boe-u23-reader :is(.boe-reading-copy p,.boe-abstract,.boe-endmatter section,a[role="doc-noteref"]) { scroll-margin-top: 18px; }
+#boe-u23-reader :is(.boe-reading-copy p,.boe-abstract,.boe-endmatter section,a[role="doc-noteref"]) { scroll-margin-top: 17px; }
 #boe-u23-reader .note-call { line-height: 0; margin-inline: .1em; }
-#boe-u23-reader .note-call a {
-  color: var(--boe-link-red); font: 600 1em/1 var(--boe-display); padding: .12em;
-}
+#boe-u23-reader .note-call a { color: var(--boe-link-red); font: 600 1em/1 var(--boe-display); padding: .12em; }
 #boe-u23-reader .boe-inline-note {
-  margin: 1em 0; padding: .25em 0 .42em .75em;
-  border-top: 1px solid var(--boe-red); border-inline-start: 1px solid var(--boe-red);
+  position: relative; margin: 1em 0; padding: .25em 0 .42em .75em;
+  border-inline-start: 1px solid var(--boe-red);
+}
+#boe-u23-reader .boe-inline-note::before {
+  content: ""; position: absolute; inset-block-start: 0; inset-inline: -5px 0;
+  border-top: 1px solid var(--boe-red);
+}
+#boe-u23-reader .boe-inline-note::after {
+  content: ""; position: absolute; inset-block-start: -5px; inset-inline-start: -1px;
+  height: 5px; border-inline-start: 1px solid var(--boe-red);
 }
 #boe-u23-reader .boe-note-top { display: flex; justify-content: space-between; align-items: center; gap: .6em; }
 #boe-u23-reader .boe-note-top h3 { font: 600 16px/1.4 var(--boe-display); }
 #boe-u23-reader .boe-note-top button {
   display: inline-grid; place-items: center; min-width: 32px; min-height: 32px;
   padding: 0; border: 0; background: transparent; color: var(--boe-link-red);
-  font: 400 22px/1 var(--boe-display); cursor: pointer;
+  font: 400 22px/1 var(--boe-display);
 }
-#boe-u23-reader .boe-endmatter { border-top: 1px solid var(--boe-red); padding: 22px var(--boe-inset) 28px; }
-#boe-u23-reader .boe-endmatter section + section { margin-top: 1.75rem; }
 #boe-u23-reader .boe-notes-list { margin: 0; padding-left: 1.3em; }
-#boe-u23-reader .boe-notes-list li { margin: 0 0 .75em .2em; }
+#boe-u23-reader .boe-notes-list li { margin: 0 0 .7em .2em; }
 #boe-u23-reader :is(.boe-note-body,.boe-note-preview-text,.boe-biblio-list,.boe-citation) { font-size: 14.5px; }
 #boe-u23-reader .boe-back { font-size: 14px; }
 #boe-u23-reader .boe-biblio-list { margin: 0; padding: 0; list-style: none; }
-#boe-u23-reader .boe-biblio-list li + li { margin-top: .54em; }
-#boe-u23-reader .boe-citation { padding-left: .75em; border-inline-start: 1px solid var(--boe-red); }
+#boe-u23-reader .boe-biblio-list li + li { margin-top: .52em; }
+#boe-u23-reader .boe-citation { padding-left: .7em; border-inline-start: 1px solid var(--boe-red); }
 #boe-u23-reader .boe-footer {
-  display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 4px 1em;
-  padding: 9px var(--boe-inset); border-top: 1px solid var(--boe-red);
-  color: var(--boe-muted); font-size: 14px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: .3em 1em;
+  padding: 10px var(--boe-inset); color: var(--boe-muted); font-size: 14px;
 }
+
 #boe-u23-reader .boe-usage { display: flex; flex-wrap: wrap; gap: 2px 1em; margin: 0; }
 #boe-u23-reader .boe-usage > div { display: flex; gap: .3em; }
 #boe-u23-reader .boe-usage dd { margin: 0; color: var(--boe-ink); }
 
-@media (max-width: 530px) {
-  #boe-u23-reader .boe-logo { height: 31px; }
-  #boe-u23-reader .boe-brand strong { font-size: 16px; }
-  #boe-u23-reader .boe-reading-body { padding-top: 16px; }
-}
-@media (min-width: 801px) {
-  #boe-u23-reader .boe-masthead::after {
-    inset-block-end: 0; height: 7px; border-inline: 1px solid var(--boe-red);
+@media (max-width: 660px) {
+  #boe-u23-reader .boe-columns { grid-template-columns: minmax(0,1fr); }
+  #boe-u23-reader .boe-ruling span { display: none; }
+  #boe-u23-reader .boe-context {
+    flex-direction: row; justify-content: space-between; align-items: baseline; flex-wrap: wrap;
+    gap: 4px 15px; padding: 12px var(--boe-inset) 0;
   }
-  #boe-u23-reader :is(.boe-article-head,.boe-navigation) { border-inline-end: 1px solid var(--boe-red); }
+  #boe-u23-reader .boe-issue-number { display: flex; align-items: baseline; gap: .45em; }
+  #boe-u23-reader .boe-article-head { padding-top: 9px; }
+  #boe-u23-reader .boe-workspace { display: block; }
+  #boe-u23-reader .boe-margin {
+    position: sticky; inset-block-start: 0; z-index: 3; margin-inline: 1px;
+    background: var(--boe-paper); border-bottom: 1px solid var(--boe-red);
+  }
+  #boe-u23-reader .boe-contents {
+    position: relative; margin: 0; padding: 3px var(--boe-inset); max-block-size: none; overflow: visible;
+  }
+  #boe-u23-reader .boe-plan { position: relative; }
+  #boe-u23-reader .boe-plan nav {
+    position: absolute; inset-block-start: 100%; inset-inline: 0; margin-top: 0;
+    grid-template-columns: repeat(2,minmax(0,1fr)); gap: 2px 10px; padding: 7px 10px;
+    background: var(--boe-paper); border: 1px solid var(--boe-red);
+    max-block-size: 55vh; max-block-size: 55dvh; overflow-y: auto;
+  }
+  #boe-u23-reader :is(.boe-reading-copy p,.boe-abstract,.boe-endmatter section,a[role="doc-noteref"]) {
+    scroll-margin-top: 56px;
+  }
+  #boe-u23-reader .boe-logo { height: 32px; }
+  #boe-u23-reader .boe-brand strong { font-size: 16px; }
 }
 @media (pointer: coarse) {
   #boe-u23-reader :is(.boe-tools a,.boe-plan a,.boe-plan summary,.boe-note-top button) { min-height: 44px; }
@@ -162,31 +203,29 @@
 </head>
 <body>
 <div id="boe-u23-reader" lang="en">
-  <header class="boe-masthead">
+  <header class="boe-masthead boe-across">
     <img class="boe-logo" src="data:image/png;base64,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" alt="BOE" width="118" height="42">
     <div class="boe-brand">
       <strong lang="fr">Bibliothèque ouverte d’égyptologie</strong>
       <small>ISSN 3129-6424</small>
     </div>
   </header>
-
-  <main class="boe-sheet">
-    <article aria-labelledby="boe-u23-title"><header class="boe-article-head">
-        <div class="boe-context">
+  <main class="boe-matrix" aria-label="Article">
+    <div class="boe-ruling" aria-hidden="true"><span></span></div>
+    <header class="boe-heading boe-columns boe-across">
+      <div class="boe-context">
         <a class="boe-all-issues" href="https://boegyptologie.github.io/en/numeros.html" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">←</span> All issues</a>
         <p class="boe-issue-number"><strong>2026<span class="boe-verspunkt" aria-hidden="true">·</span></strong><span>Issue 1</span></p>
       </div>
-      <h1 id="boe-u23-title">The Phonetic Value of Gardiner's Sign U 23 <span class="boe-sign">(𓍋)</span> in Earlier Egyptian</h1>
+      <div class="boe-article-head">
+        <h1 id="boe-u23-title">The Phonetic Value of Gardiner's Sign U 23 <span class="boe-sign">(𓍋)</span> in Earlier Egyptian</h1>
         <p class="boe-byline"><strong>Peter Pathappan</strong><time datetime="2026-03-19">19 March 2026</time><span>pp. 1–9</span></p>
-      </header>
-    <div class="boe-navigation">
-<nav class="boe-tools" aria-label="Reading options">
-          <a href="#boe-u23-notes">Notes</a>
-          <a href="#boe-u23-references">References</a>
-          <a href="#boe-u23-citation">Cite</a>
-          <a href="https://boegyptologie.github.io/articles/2026-1/BOE_2026_1_Pathappan.pdf" target="_blank" rel="noopener noreferrer" class="boe-pdf-link" data-goatcounter-click="boe-u23-pdf-click" data-goatcounter-title="U 23 PDF click" data-goatcounter-no-session="1">PDF</a>
-        </nav>
-        <details class="boe-plan">
+      </div>
+    </header>
+    <div class="boe-workspace boe-columns">
+      <aside class="boe-margin" aria-label="Article contents">
+        <div class="boe-contents">
+          <details class="boe-plan">
           <summary>Contents</summary>
           <nav aria-label="Article contents">
             <a href="#boe-u23-abstract">Abstract</a>
@@ -198,11 +237,20 @@
             <a href="#bloc-55ca09942b524a58"><span class="boe-contents-number">5.</span> <span>The four pieces of evidence</span></a>
           </nav>
         </details>
-      </div>
-<div class="boe-reading-body">
-<section aria-labelledby="boe-u23-reading-resume" class="boe-abstract" id="boe-u23-abstract"><h2 id="boe-u23-reading-resume">Abstract</h2>
+        </div>
+      </aside>
+      <article class="boe-article" aria-labelledby="boe-u23-title">
+        <nav class="boe-tools boe-field" aria-label="Reading options">
+          <a href="#boe-u23-notes">Notes</a>
+          <a href="#boe-u23-references">References</a>
+          <a href="#boe-u23-citation">Cite</a>
+          <a href="https://boegyptologie.github.io/articles/2026-1/BOE_2026_1_Pathappan.pdf" target="_blank" rel="noopener noreferrer" class="boe-pdf-link" data-goatcounter-click="boe-u23-pdf-click" data-goatcounter-title="U 23 PDF click" data-goatcounter-no-session="1">PDF</a>
+        </nav>
+        <div class="boe-reading-body">
+<section aria-labelledby="boe-u23-reading-resume" class="boe-abstract boe-field" id="boe-u23-abstract"><h2 id="boe-u23-reading-resume">Abstract</h2>
 <div lang="en" class="boe-reading-copy"><p id="bloc-4a461761cb0f06a0" lang="en">The article examines the reading of the sign 𓍋 in the Old and Middle Kingdom and concludes that the phonetic value must be mr and not mḥr. Four pieces of evidence are used to support this conclusion. The first three come from onomastics and show the interchangeability of 𓍋 with 𓅓𓂋, 𓈘, and 𓌸. The fourth piece of evidence is a prefixed form of the verb 𓍋𓅓𓂋𓅪 from the Pyramid Texts, which proves that the verb consists of two radicals, meaning that it must be mr and not mḥr.</p></div></section>
-        <div class="boe-reading-copy" lang="en">
+        <div class="boe-text">
+<div class="boe-reading-copy" lang="en">
 <p id="bloc-666ed40650df8613" class="opening">0. <span class="semibold opening-red">The sign </span><span class="opening-red">𓍋</span><span class="semibold opening-red"> possesses two distinct phonetic values</span>. While the reading ꜣb is not subject to debate, the second phonetic value has been the subject of scientific discourse for some time. The prevailing perspective, as articulated by Gardiner (1957: 518), is that the phonetic value is mr. Quack (2003) posited that an alternative reading, mḥr, should be employed. He cites late spellings with ḥ and a pun from the Pyramid Texts. This assertion is countered by the works of Regulski (2010: 196) and Schweitzer (2011). Evidence from the Early Dynastic Period is cited, and it is asserted that this evidence can only be explained by the phonetic value mr. This question has been addressed in another article by Quack (2022). In addition, he presents a series of arguments that are intended to support his hypothesis. He also endeavors to invalidate the evidence cited by Regulski and Schweitzer. A thorough review of this article was conducted by Fante (2023). She has demonstrated with a high degree of conviction that the evidence from the Early Dynastic Period unequivocally validates the phonetic value mr. Moreover, she has substantiated that Quack's interpretations of the Early Dynastic Period evidence are not valid, and that all the evidence from the Old and Middle Kingdom that Quack lists for mḥr, including the attempt of Collombert (2010) equating the different terms for “pyramid” 𓍋𓅓𓂋𓉴 and 𓁷𓂋𓉴,<span class="opening-red"><sup><strong></strong></sup></span><sup class="note-call"><a id="appel-299733556f6576d5-1" href="#note-299733556f6576d5" data-note-target="note-299733556f6576d5" role="doc-noteref" aria-label="Note 1" aria-expanded="false" aria-controls="boe-u23-inline-note">1</a></sup> is untenable. Additionally, she proposes an explanatory model for the late spellings with ḥ. The sign has undergone a process of reinterpretation, a phenomenon that has also been observed in 𓋉 or 𓏤𓏤𓏤𓏤𓏤𓏤𓏤𓏤.<span class="opening-red"><sup><strong></strong></sup></span><sup class="note-call"><a id="appel-40832586f66efc20-1" href="#note-40832586f66efc20" data-note-target="note-40832586f66efc20" role="doc-noteref" aria-label="Note 2" aria-expanded="false" aria-controls="boe-u23-inline-note">2</a></sup> This finding serves to substantiate the phonetic value of mr as valid for the duration of the Early Dynastic Period. However, it is noteworthy that the sign could be interpreted as mḥr during the first millennium. This contribution poses the following question: what was the phonetic value in the Old and Middle Kingdom? It offers four indications that lend support to mr.</p>
 <p id="bloc-62c521f370690fbd">1. In 1943 Hermann Junker published the mastaba of Kꜣ-ḥ(w)j=f. On the west wall there are figures with offerings.<span class="opening-red"><sup><strong></strong></sup></span><sup class="note-call"><a id="appel-2bb9f40c8e2f95ef-1" href="#note-2bb9f40c8e2f95ef" data-note-target="note-2bb9f40c8e2f95ef" role="doc-noteref" aria-label="Note 3" aria-expanded="false" aria-controls="boe-u23-inline-note">3</a></sup> The fourth person has the following inscription: 𓂘𓍛𓅓𓂋𓅱𓇋𓂧𓅱. As Junker already suspected, the name 𓅓𓂋𓅱𓇋𓂧𓅱 is present. Ranke (1935: 162.9) lists this name as mrw jdw, thus interpreting a name consisting of two elements. The second element contains the word jd.w, which can be used as epiclesis<span class="opening-red"><sup><strong></strong></sup></span><sup class="note-call"><a id="appel-11e652112fb20706-1" href="#note-11e652112fb20706" data-note-target="note-11e652112fb20706" role="doc-noteref" aria-label="Note 4" aria-expanded="false" aria-controls="boe-u23-inline-note">4</a></sup> in Old Kingdom names. Scheele-Schweitzer (2014) knows the following examples: Jni̯-jtj=f-jd.w #328, Mr.w-jd.w #1282, Ḥtp-Ptḥ-jd.w #2567, Ḥtp-Sbk-jd.w #2609.</p>
 <p id="bloc-e1f3533ea590f06c">There is additional evidence of this name in the Old Kingdom. On the eastern wall of the mastaba of Uhemka<span class="opening-red"><sup><strong></strong></sup></span><sup class="note-call"><a id="appel-3fe0c48265c7f74a-1" href="#note-3fe0c48265c7f74a" data-note-target="note-3fe0c48265c7f74a" role="doc-noteref" aria-label="Note 5" aria-expanded="false" aria-controls="boe-u23-inline-note">5</a></sup> it is written: 𓍋𓅓𓅱𓂧𓅱. Ranke (1935: 421.20) still understood the first bird hieroglyph as 𓄿. However, Kayser's (1964: 68) reading of 𓅱 in his publication of the Mastaba was concurred with by Scheele-Schweitzer (2014: #1273). The photographic evidence presented herein serves to reinforce the accuracy of Kayser's interpretation.<span class="opening-red"><sup><strong></strong></sup></span><sup class="note-call"><a id="appel-eb7f6a868c8b70b4-1" href="#note-eb7f6a868c8b70b4" data-note-target="note-eb7f6a868c8b70b4" role="doc-noteref" aria-label="Note 6" aria-expanded="false" aria-controls="boe-u23-inline-note">6</a></sup></p>
@@ -212,6 +260,7 @@
 <p id="bloc-4dfef8a1be5692ac">4. In addition to onomastics, another area that can contribute to the question of phonetic value, albeit one that has not yet been considered by either Quack or Schweitzer, is the inflection of verbs. Inflection is known to depend on the verbal class. Verbs comprising two radicals can be prefixed under certain conditions; however, verbs with three radicals do not possess this ability. The verb 𓍋𓅓𓂋𓅪 contains two radicals if the phonetic value of 𓍋 is mr. However, if Quack's approach is accurate, it contains three radicals. The presence of a prefixed verbal form of this verb clearly indicates the phonetic value of mr. In Allen (1984), the inflection of the verb 𓍋𓅓𓂋𓅪 can be elicited with a high degree of success. Allen has noted a prefixed Old Perfective of 𓍋𓅓𓂋𓅪 in Pyr § 1202d, albeit with a question mark. The relevant passage is oraec164-21<span class="opening-red"><sup><strong></strong></sup></span><sup class="note-call"><a id="appel-50918e85f0639b0b-1" href="#note-50918e85f0639b0b" data-note-target="note-50918e85f0639b0b" role="doc-noteref" aria-label="Note 18" aria-expanded="false" aria-controls="boe-u23-inline-note">18</a></sup>: … jr wt ḏbꜥ pw jm n.j Wsjr 𓊄𓇋𓍋𓅓𓂋 Allen (2005: 160) translates: “[…] to wrap with it the finger of Osiris that has gone painful”. What does the 𓇋 belong to here? Sethe assigns it to the preceding word. Sethe (1962: 101) writes: “𓊄𓇋 Part. perf. wegen des pw und nicht Pseudop., das Verbum wohl als Hilfsverbum zu verstehen (wie 𓃹𓈖 od. 𓆣𓂋), dem das eigentl. Verbum in der Form des Pseudopartizips folgt”. But the case is not that clear! The singular attributive participle of this verb is mostly written without ending in the Pyramid texts: Pyr §§ 17a, 62a, 693d, 826a, 832a, 1431a, 1595b, 1605b. In Pyr § 1431a, only the text witness P has the ending 𓇋. In Pyr § 1193b, all text witnesses have an ending: P and M have 𓇋, while N has 𓇌. Pyr § 316b writes 𓊄𓇌. Allen (1984: § 614) discusses the inflection of the participle forms of the verbs secundae infirmae. He takes the forms without endings as perfective. For the forms with endings he discusses the possibility that they are imperfective. Allen (1984: § 38) points out that the participles with endings in § 316b and 1193b parallel the participle of jyi̯, which also writes an ending here. According to semantics, we have to assume with Sethe that there is a perfective in § 1202d, as Allen translates it. In this respect a form without endings makes sense. However, this would have the consequence that the 𓇋 would have to be drawn to the following 𓍋𓅓𓂋𓅪. A prefixed form can only be explained if the phonetic value is mr.</p>
 <p id="bloc-55ca09942b524a58">5. The four pieces of evidence listed suggest that, as in the Early Dynastic Period, mr is the phonetic value of 𓍋 for the Old Kingdom and the Middle Kingdom. There is no evidence for a reinterpretation as mḥr, as is evident in the Greco-Roman period. In Earlier Egyptian texts, 𓍋 should be transliterated as mr.</p>
 </div>
+</div>
 <aside id="boe-u23-inline-note" class="boe-inline-note" aria-labelledby="boe-u23-inline-title" hidden>
         <div class="boe-note-top">
 <h3 id="boe-u23-inline-title">Note</h3>
@@ -220,7 +269,7 @@
         <div class="boe-note-preview-text" lang="en"></div>
       </aside>
     </div>
-<div class="boe-endmatter">
+        <div class="boe-endmatter">
 <section aria-labelledby="boe-u23-notes-title" id="boe-u23-notes">
         <h2 id="boe-u23-notes-title">Notes</h2>
         <ol class="boe-notes-list" role="list">
@@ -330,9 +379,11 @@
         <blockquote class="boe-citation" lang="en">Peter Pathappan. 2026. “The Phonetic Value of Gardiner’s Sign U 23 (𓍋) in Earlier Egyptian.” <cite lang="fr">Bibliothèque ouverte d’égyptologie</cite>, 2026/1, p. 1–9. <a href="https://doi.org/10.5281/zenodo.19086657" target="_blank" rel="noopener noreferrer">https://doi.org/10.5281/zenodo.19086657</a>
 </blockquote>
       </section>
-      </div></article></main>
-
-  <footer class="boe-footer">
+      </div>
+      </article>
+    </div>
+  </main>
+  <footer class="boe-footer boe-across">
     <dl class="boe-usage" aria-label="BOE usage counters" aria-live="polite">
       <div>
 <dt>Article visits</dt>
@@ -346,6 +397,7 @@
     <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>
   </footer>
 </div>
+
 <script>
 (() => {
   const reader = document.getElementById('boe-u23-reader');
@@ -366,8 +418,12 @@
     if (restoreFocus) link.focus();
   }
 
+  const compact = matchMedia('(max-width: 660px)');
+  const fitContents = () => { contents.open = !compact.matches; };
+  compact.addEventListener('change', fitContents);
+  fitContents();
   contents.addEventListener('click', event => {
-    if (event.target.closest('a')) contents.open = false;
+    if (compact.matches && event.target.closest('a')) contents.open = false;
   });
   closeButton.addEventListener('click', () => closeNote(true));
   reader.addEventListener('keydown', event => {
